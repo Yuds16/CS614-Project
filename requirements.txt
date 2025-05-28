@@ -1,0 +1,4 @@
+ipykernel
+pymupdf
+ebooklib
+bs4
