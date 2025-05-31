@@ -1,4 +1,7 @@
 ipykernel
-pymupdf
-ebooklib
-bs4
+PyPDF2
+chromadb
+transformers
+torch
+numpy
+pandas
