@@ -2,3 +2,4 @@
 .venv
 chroma_db/*
 *.pyc
+modules/tracker.json
