@@ -7,7 +7,7 @@ import uuid
 db_location = "./chroma_db"
 
 # Placing it here so it is initialized only once
-# To prevent any rate limits from the Ollama API
+# To prevent hitting any rate limits from the Ollama API
 EMBEDDING_FUNCTIONS = {
     "nomic-embed-text": OllamaEmbeddings(model="nomic-embed-text"),
     "mxbai-embed-large": OllamaEmbeddings(model="mxbai-embed-large"),
