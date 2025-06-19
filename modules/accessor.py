@@ -1,9 +1,21 @@
-import chromadb
-from chromadb.api.types import QueryResult
+from langchain_chroma import Chroma
+from langchain_ollama import OllamaEmbeddings
+from langchain_core import Document
 
 import uuid
 
-CLIENT = chromadb.PersistentClient(path="./chroma_db")
+db_location = "./chroma_db"
+
+# Placing it here so it is initialized only once
+# To prevent any rate limits from the Ollama API
+EMBEDDING_FUNCTIONS = {
+    "nomic-embed-text": OllamaEmbeddings(model="nomic-embed-text"),
+    "mxbai-embed-large": OllamaEmbeddings(model="mxbai-embed-large"),
+    "bge-m3": OllamaEmbeddings(model="bge-m3"),
+    "snowflake-arctic-embed": OllamaEmbeddings(model="snowflake-arctic-embed"),
+    "snowflake-arctic-embed2": OllamaEmbeddings(model="snowflake-arctic-embed2"),
+    "all-minilm": OllamaEmbeddings(model="all-minilm"),
+}
 
 def get_collection_names_from_dim(dim_size, custom_suffix=None) -> str:
     '''
@@ -11,71 +23,42 @@ def get_collection_names_from_dim(dim_size, custom_suffix=None) -> str:
     '''
     return "dim_{}_collection".format(dim_size) + ("" if custom_suffix is None else "_{}".format(custom_suffix))
 
-def query_embedding(query, custom_suffix=None, n_results=10, metadata_query=None) -> QueryResult:
+def get(query: str, embedding_func: str, custom_suffix: str = None, n_results: int = 10) -> list[Document]:
     '''
     Queries the embedding database for the given query embedding.
     Will search for the collection with the same dim, can be differentiated using a custom suffix.
     ''' 
         
-    if query is None or not isinstance(query[0], list) or not isinstance(query[0][0], float):
-        raise ValueError("Query embedding must be a list of lists.")
+    if query is None:
+        raise ValueError("Query cannot be None.")
+    
+    if embedding_func not in EMBEDDING_FUNCTIONS:
+        raise ValueError(f"Embedding function '{embedding_func}' is not supported. Available functions: {list(EMBEDDING_FUNCTIONS.keys())}")
     
     collection_name = get_collection_names_from_dim(len(query[0]), custom_suffix)
-    collection = CLIENT.get_or_create_collection(collection_name)
-    
-    results = collection.query(
-        query_embeddings=query,
-        n_results=n_results,
-        where=metadata_query,
-        include=["embeddings", "documents", "metadatas"]
+    client = Chroma(
+        persist_directory=db_location,
+        embedding_function=EMBEDDING_FUNCTIONS.get(embedding_func),
+        collection_name=collection_name,
     )
     
-    return results
+    documents = client.search(query=query, search_type="similarrity")
+    
+    return documents
 
-def add_embedding(embeddings, document=None, custom_suffix=None, metadata=None) -> None:
+def insert(data: str, embedding_func: str, document=None, custom_suffix=None, metadata=None) -> None:
     '''
     Adds an embedding to the vector database.
     '''
-    if embeddings is None or not isinstance(embeddings[0], list) or not isinstance(embeddings[0][0], float):
-        raise ValueError("Embeddings must be a list of lists.")
-    
-    entry_count = len(embeddings)
+    if data is None:
+        raise ValueError("Data cannot be None.")
     
     collection_name = get_collection_names_from_dim(len(embeddings[0]), custom_suffix)
-    collection = CLIENT.get_or_create_collection(collection_name)
-    
-     # document structuring
-    documents = None
-    if document:
-        if isinstance(document, str):
-            documents = [document for _ in range(entry_count)]
-        
-    # populate metadata
-    if custom_suffix is not None or document is not None:
-        if metadata is None:
-            metadata = {} # create an empty metadata dictionary if none is provided
-            
-        # carry metadata with entry
-        if custom_suffix:
-            metadata['custom_suffix'] = custom_suffix
-        if document:
-            metadata['document'] = document
-        
-        metadata = [metadata for _ in range(entry_count)]        
-    
-    
-    try:
-        # this function is basically a bulk insert, hence all embeddings, documents, and metadata should be lists of the same length
-        collection.add(
-            embeddings=embeddings,
-            documents=documents if documents else None,
-            metadatas=metadata if metadata else None,
-            ids=[str(uuid.uuid4()) for _ in range(len(embeddings))]
-        )   
-    except Exception as e:
-        print(f"Error adding embedding: {e}")
-        print("Dimension of embeddings:", len(embeddings[0]) if embeddings else "None")
-        raise e
+    client = Chroma(
+        persist_directory=db_location,
+        embedding_function=EMBEDDING_FUNCTIONS.get(embedding_func),
+        collection_name=collection_name,
+    )
 
 def list_collections() -> list:
     '''
