@@ -6,3 +6,9 @@ torch
 numpy
 pandas
 sentence_transformers
+peft 
+accelerate
+bitsandbytes
+datasets
+langchain
+langchain-core
