@@ -1,7 +1,7 @@
 import json
 
 COLUMN_NAMES = ["file_name", "processed"]
-TRACKER_FILE = "modules/tracker.json"
+TRACKER_FILE = "../modules/tracker.json"
 
 def add_new_file(filename: str) -> None:
     data = get_tracker_data()

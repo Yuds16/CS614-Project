@@ -12,3 +12,5 @@ bitsandbytes
 datasets
 langchain
 langchain-core
+langchain_chroma
+langchain_ollama

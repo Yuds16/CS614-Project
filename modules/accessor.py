@@ -1,95 +1,89 @@
-import chromadb
-from chromadb.api.types import QueryResult
+from langchain_chroma import Chroma
+from langchain_ollama import OllamaEmbeddings
+from langchain_core.documents import Document
 
 import uuid
 
-CLIENT = chromadb.PersistentClient(path="./chroma_db")
+db_location = "./chroma_db"
 
-def get_collection_names_from_dim(dim_size, custom_suffix=None) -> str:
+# Placing it here so it is initialized only once
+# Ensure that the Ollama server is running and accessible
+# The models should be available in the Ollama server
+EMBEDDING_FUNCTIONS = {
+    "nomic-embed-text": OllamaEmbeddings(model="nomic-embed-text"),
+    "mxbai-embed-large": OllamaEmbeddings(model="mxbai-embed-large"),
+    "bge-m3": OllamaEmbeddings(model="bge-m3"),
+    "snowflake-arctic-embed": OllamaEmbeddings(model="snowflake-arctic-embed"),
+    "snowflake-arctic-embed2": OllamaEmbeddings(model="snowflake-arctic-embed2"),
+    "all-minilm": OllamaEmbeddings(model="all-minilm"),
+}
+
+def get_collection_names_from_dim(embedding_func, custom_suffix=None) -> str:
     '''
     Returns the name of the collection based on the dimension size and an optional custom suffix.
     '''
-    return "dim_{}_collection".format(dim_size) + ("" if custom_suffix is None else "_{}".format(custom_suffix))
+    return "{}_collection".format(embedding_func) + ("" if custom_suffix is None else "_{}".format(custom_suffix))
 
-def query_embedding(query, custom_suffix=None, n_results=10, metadata_query=None) -> QueryResult:
+def get(query: str, embedding_func: str, custom_suffix: str = None, n_results: int = 10) -> list[Document]:
     '''
     Queries the embedding database for the given query embedding.
     Will search for the collection with the same dim, can be differentiated using a custom suffix.
     ''' 
-        
-    if query is None or not isinstance(query[0], list) or not isinstance(query[0][0], float):
-        raise ValueError("Query embedding must be a list of lists.")
+    if query is None:
+        raise ValueError("Query cannot be None.")
     
-    collection_name = get_collection_names_from_dim(len(query[0]), custom_suffix)
-    collection = CLIENT.get_or_create_collection(collection_name)
+    if embedding_func not in EMBEDDING_FUNCTIONS:
+        raise ValueError(f"Embedding function '{embedding_func}' is not supported. Available functions: {list(EMBEDDING_FUNCTIONS.keys())}")
     
-    results = collection.query(
-        query_embeddings=query,
-        n_results=n_results,
-        where=metadata_query,
-        include=["embeddings", "documents", "metadatas"]
+    collection_name = get_collection_names_from_dim(embedding_func, custom_suffix)
+    client = Chroma(
+        persist_directory=db_location,
+        embedding_function=EMBEDDING_FUNCTIONS.get(embedding_func),
+        collection_name=collection_name,
     )
     
-    return results
+    documents = client.search(query=query, search_type="similarity")
+    
+    return documents
 
-def add_embedding(embeddings, document=None, custom_suffix=None, metadata=None) -> None:
+def insert(data: list[str], embedding_func: str, custom_suffix=None, metadata=None) -> None:
     '''
     Adds an embedding to the vector database.
     '''
-    if embeddings is None or not isinstance(embeddings[0], list) or not isinstance(embeddings[0][0], float):
-        raise ValueError("Embeddings must be a list of lists.")
+    if data is None:
+        raise ValueError("Data cannot be None.")
     
-    entry_count = len(embeddings)
+    collection_name = get_collection_names_from_dim(embedding_func, custom_suffix)
+    client = Chroma(
+        persist_directory=db_location,
+        embedding_function=EMBEDDING_FUNCTIONS.get(embedding_func),
+        collection_name=collection_name,
+    )
     
-    collection_name = get_collection_names_from_dim(len(embeddings[0]), custom_suffix)
-    collection = CLIENT.get_or_create_collection(collection_name)
+    ids = client.add_texts(
+        texts=data,
+        metadatas=[metadata] if metadata else [None],
+    )
     
-     # document structuring
-    documents = None
-    if document:
-        if isinstance(document, str):
-            documents = [document for _ in range(entry_count)]
-        
-    # populate metadata
-    if custom_suffix is not None or document is not None:
-        if metadata is None:
-            metadata = {} # create an empty metadata dictionary if none is provided
-            
-        # carry metadata with entry
-        if custom_suffix:
-            metadata['custom_suffix'] = custom_suffix
-        if document:
-            metadata['document'] = document
-        
-        metadata = [metadata for _ in range(entry_count)]        
-    
-    
-    try:
-        # this function is basically a bulk insert, hence all embeddings, documents, and metadata should be lists of the same length
-        collection.add(
-            embeddings=embeddings,
-            documents=documents if documents else None,
-            metadatas=metadata if metadata else None,
-            ids=[str(uuid.uuid4()) for _ in range(len(embeddings))]
-        )   
-    except Exception as e:
-        print(f"Error adding embedding: {e}")
-        print("Dimension of embeddings:", len(embeddings[0]) if embeddings else "None")
-        raise e
+    print(f"Inserted data with IDs: {ids} into collection '{collection_name}'.")
 
 def list_collections() -> list:
     '''
     Lists all collections in the vector database.
     '''
-    collections = CLIENT.list_collections()
-    collection_names = [collection.name for collection in collections]
-    return collection_names
+    collections = Chroma(
+        persist_directory=db_location
+    )._client.list_collections()
+    
+    return [collection.name for collection in collections]
 
 def delete_collection(collection_name: str) -> None:
     '''
     Deletes a collection from the vector database.
     '''
-    CLIENT.delete_collection(collection_name)
+    Chroma(
+        persist_directory=db_location
+    )._client.delete_collection(collection_name)
     print(f"Collection '{collection_name}' deleted.")
     
 def cleanup() -> None:
@@ -97,29 +91,35 @@ def cleanup() -> None:
     Cleans up the vector database by deleting all collections.
     To keep the database clean, this function deletes collections that have "example" or "test" in their names.
     '''
-    collections = CLIENT.list_collections()
+    collections = list_collections()
     for collection in collections:
-        if "example" in collection.name or "test" in collection.name:
-            print(f"Deleting collection: {collection.name}")
-            CLIENT.delete_collection(collection.name)
+        if "example" in collection or "test" in collection:
+            print(f"Deleting collection: {collection}")
+            delete_collection(collection)
     
 if __name__ == "__main__":
-    embeddings = [[0.1 for _ in range(768)] for _ in range(5)]
-    document = "This is a sample document."
+    # Example usage and testing
     custom_suffix = "example"
     
-    print(embeddings)
-    
-    add_embedding(
-        embeddings=embeddings,
-        document=document,
+    ids = insert(
+        data=["This is an example input."],
+        embedding_func="nomic-embed-text",
         custom_suffix=custom_suffix,
         metadata=None
     )
     
-    query_result = query_embedding(embeddings, custom_suffix)
-    print(query_result)
+    print(ids)
     
-    print(CLIENT.list_collections())
+    documents = get(
+        query="example",
+        embedding_func="nomic-embed-text",
+        custom_suffix=custom_suffix
+    )
+    print(documents)
+    
+    print(documents[0].page_content)
+    
+    # Seems like a collection called "langchain" is created by default
+    print(list_collections())
     
     cleanup()
