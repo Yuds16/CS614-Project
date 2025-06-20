@@ -1,5 +1,6 @@
 .DS_Store
 .venv
 chroma_db/*
+preprocessing/chroma_db/*
 *.pyc
 modules/tracker.json
