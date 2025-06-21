@@ -3,8 +3,11 @@ from langchain_ollama import OllamaEmbeddings
 from langchain_core.documents import Document
 
 import uuid
+import os
 
-db_location = "./chroma_db"
+# Define project root relative to this file's location
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+db_location = os.path.join(PROJECT_ROOT, "data", "chroma_db")
 
 # Placing it here so it is initialized only once
 # Ensure that the Ollama server is running and accessible
