@@ -2,7 +2,6 @@ from langchain_chroma import Chroma
 from langchain_ollama import OllamaEmbeddings
 from langchain_core.documents import Document
 
-import uuid
 import os
 
 # Define project root relative to this file's location
@@ -16,9 +15,9 @@ EMBEDDING_FUNCTIONS = {
     "nomic-embed-text": OllamaEmbeddings(model="nomic-embed-text"),
     "mxbai-embed-large": OllamaEmbeddings(model="mxbai-embed-large"),
     "bge-m3": OllamaEmbeddings(model="bge-m3"),
-    "snowflake-arctic-embed": OllamaEmbeddings(model="snowflake-arctic-embed"),
-    "snowflake-arctic-embed2": OllamaEmbeddings(model="snowflake-arctic-embed2"),
-    "all-minilm": OllamaEmbeddings(model="all-minilm"),
+    # "snowflake-arctic-embed": OllamaEmbeddings(model="snowflake-arctic-embed"),
+    # "snowflake-arctic-embed2": OllamaEmbeddings(model="snowflake-arctic-embed2"),
+    # "all-minilm": OllamaEmbeddings(model="all-minilm"),
 }
 
 def get_collection_names_from_dim(embedding_func, custom_suffix=None) -> str:
