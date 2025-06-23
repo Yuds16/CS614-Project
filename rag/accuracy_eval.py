@@ -73,7 +73,7 @@ def _extract_choice(text: str, llm_model: str) -> str:
         f.write(text)
     # Keep only the substring *after* the reasoning marker, if present.
     
-    if "</think>" in text and llm_model == "qwen3:8b":
+    if llm_model == "qwen3:8b" and "</think>" in text:
         text = text.split("</think>")[-1]
 
     match = re.search(r"\b([ABCD])\b", text, flags=re.I)
