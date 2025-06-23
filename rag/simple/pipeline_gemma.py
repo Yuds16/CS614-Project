@@ -72,8 +72,7 @@ class RAGPipeline:
 def _build_prompt_template() -> PromptTemplate:
     template = (
         "You are an expert assistant. Answer the user's question based on the provided documents.\n"
-        "If the answer is not contained in the documents, say you don't know.\n"
-        "\n"
+        "It's MCQ question, please give me the answer in the format of 'A', 'B', 'C', 'D'.If you are not sure, please give me the answer in the format of 'I don't know'.\n"
         "Context:\n{context}\n\nQuestion: {question}\nAnswer:"  # noqa: E501
     )
     return PromptTemplate.from_template(template)
@@ -119,6 +118,8 @@ def build_rag_pipeline(
         persist_directory=db_location,
         embedding_function=EMBEDDING_FUNCTIONS[embedding_name],
     )
+
+    print(vector_store.similarity_search(query='a',k=1))
     retriever = vector_store.as_retriever(search_kwargs={"k": k})
 
     # ------------------------------------------------------------------
