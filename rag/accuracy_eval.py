@@ -38,7 +38,12 @@ from typing import List, Tuple
 from tqdm import tqdm
 
 # Re-use the existing simple RAG builder
-from simple.pipeline_qwen import build_rag_pipeline, RAGPipeline
+# from simple.pipeline_qwen import build_rag_pipeline, RAGPipeline
+from simple.pipeline_gemma import build_rag_pipeline, RAGPipeline
+from rerank.rerank_gemma import build_rag_rerank_pipeline,RerankRAGPipeline
+from rerank.rerank_qwen import build_rag_rerank_pipeline,RerankRAGPipeline
+from contextual.contextual_gemma import build_rag_contextual_pipeline,ContextualRAGPipeline
+from contextual.contextual_qwen import build_rag_contextual_pipeline,ContextualRAGPipeline
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -64,11 +69,11 @@ def _extract_choice(text: str, llm_model: str) -> str:
     capital letters inside the reasoning block don't interfere with the
     extraction.
     """
-    with open(f"{llm_model}_results.txt", "w") as f:
+    with open(f"{llm_model}_results.txt", "a") as f:
         f.write(text)
     # Keep only the substring *after* the reasoning marker, if present.
-    
-    if "</think>" in text:
+
+    if "</think>" in text and llm_model == "qwen3:8b":
         text = text.split("</think>")[-1]
 
     match = re.search(r"\b([ABCD])\b", text, flags=re.I)
