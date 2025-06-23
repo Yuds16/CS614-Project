@@ -17,7 +17,7 @@ EMBEDDING_FUNCTIONS = {
     "bge-m3": OllamaEmbeddings(model="bge-m3"),
     # "snowflake-arctic-embed": OllamaEmbeddings(model="snowflake-arctic-embed"),
     # "snowflake-arctic-embed2": OllamaEmbeddings(model="snowflake-arctic-embed2"),
-    # "all-minilm": OllamaEmbeddings(model="all-minilm"),
+    "all-minilm": OllamaEmbeddings(model="all-minilm"),
 }
 
 def get_collection_names_from_dim(embedding_func, custom_suffix=None) -> str:

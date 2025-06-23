@@ -23,6 +23,11 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..",
 from langchain.chains import RetrievalQA
 from langchain_ollama import OllamaLLM
 from langchain.prompts import PromptTemplate
+from langchain.prompts.chat import (
+    ChatPromptTemplate,
+    SystemMessagePromptTemplate,
+    HumanMessagePromptTemplate,
+)
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
 from langchain.schema import BaseRetriever
@@ -137,13 +142,25 @@ class RerankRAGPipeline:
 # ---------------------------------------------------------------------------
 
 
-def _build_prompt_template() -> PromptTemplate:
-    template = (
-        "You are an expert assistant. Answer the user's question based on the provided documents. "
-        "If the answer is not in the documents, say you don't know.\n\n"
-        "Context:\n{context}\n\nQuestion: {question}\nAnswer:"
+def _build_chat_prompt_template() -> ChatPromptTemplate:
+    """Create a chat prompt where *context* is placed inside the system role.
+
+    The caller may inject a custom *system_prompt* containing the ``{context}`` and
+    ``{question}`` placeholders. When *system_prompt* is *None* a sensible
+    default is provided.
+    """
+
+    system_prompt = (
+        "You are an expert assistant. Answer the user's MCQ question based on the provided context.\n"
+        "Give me ONLY the letter corresponding to the chosen answer in the format of 'A', 'B', 'C', 'D'.\n"
+        "No need to explain anything. No need to print anything else.\n"
+        "Your output response should ONLY contain 1 letter. Example: 'A'.\n"
+        "Context: {context}"
     )
-    return PromptTemplate.from_template(template)
+    system_msg = SystemMessagePromptTemplate.from_template(system_prompt)
+    human_msg = HumanMessagePromptTemplate.from_template("{question}")
+
+    return ChatPromptTemplate.from_messages([system_msg, human_msg])
 
 
 def build_rag_rerank_pipeline(
@@ -207,12 +224,14 @@ def build_rag_rerank_pipeline(
     llm_model = llm_model or os.environ.get("OLLAMA_LLM", "gemma:7b")
     llm = OllamaLLM(model=llm_model)
 
+    prompt = _build_chat_prompt_template()
+
     chain = RetrievalQA.from_chain_type(
         llm=llm,
         retriever=retriever,
         chain_type="stuff",
         return_source_documents=True,
-        chain_type_kwargs={"prompt": _build_prompt_template()},
+        chain_type_kwargs={"prompt": prompt},
     )
 
     return RerankRAGPipeline(
