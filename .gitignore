@@ -4,3 +4,4 @@ chroma_db/*
 preprocessing/chroma_db/*
 *.pyc
 modules/tracker.json
+data/*
