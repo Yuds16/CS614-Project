@@ -39,11 +39,11 @@ from tqdm import tqdm
 
 # Re-use the existing simple RAG builder
 from simple.pipeline_qwen import build_rag_pipeline, RAGPipeline
-from simple.pipeline_gemma import build_rag_pipeline, RAGPipeline
-from rerank.rerank_qwen import build_rag_rerank_pipeline as build_rag_pipeline, RerankRAGPipeline as RAGPipeline
-from rerank.rerank_gemma import build_rag_rerank_pipeline as build_rag_pipeline, RerankRAGPipeline as RAGPipeline
-from contextual.contextual_qwen import build_rag_contextual_pipeline as build_rag_pipeline, ContextualRAGPipeline as RAGPipeline
-from contextual.contextual_gemma import build_rag_contextual_pipeline as build_rag_pipeline, ContextualRAGPipeline as RAGPipeline
+# from simple.pipeline_gemma import build_rag_pipeline, RAGPipeline
+# from rerank.rerank_qwen import build_rag_rerank_pipeline as build_rag_pipeline, RerankRAGPipeline as RAGPipeline
+# from rerank.rerank_gemma import build_rag_rerank_pipeline as build_rag_pipeline, RerankRAGPipeline as RAGPipeline
+# from contextual.contextual_qwen import build_rag_contextual_pipeline as build_rag_pipeline, ContextualRAGPipeline as RAGPipeline
+# from contextual.contextual_gemma import build_rag_contextual_pipeline as build_rag_pipeline, ContextualRAGPipeline as RAGPipeline
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -103,8 +103,15 @@ def evaluate(
     total = len(refs)
 
     for prompt, gold in tqdm(refs, desc="Evaluating", unit="q"):
-        pred_raw = pipe.ask(prompt, k=k)
-        pred = _extract_choice(pred_raw,llm_model)
+        pred_raw = pipe.ask(prompt, k=k)['text']
+        # pred_raw = pipe.ask(prompt, k=k)
+        # pred_raw = pipe.ask(prompt)
+        print(prompt)
+        print(pred_raw)
+        print()
+        print("===")
+        print()
+        pred = _extract_choice(pred_raw, llm_model)
         correct += int(pred == gold)
 
     accuracy = correct / total if total else 0.0
