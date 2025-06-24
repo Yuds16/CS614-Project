@@ -26,6 +26,7 @@ from langchain.prompts.chat import (
 )
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
+from langchain.chains import LLMChain
 
 from modules.accessor import EMBEDDING_FUNCTIONS, get_collection_names_from_dim
 __all__ = [
@@ -49,18 +50,21 @@ class RAGPipeline:
         self.retriever_collection = retriever_collection
         self.embedding_name = embedding_name
         self.k = k
+        self.is_rag = isinstance(chain, RetrievalQA)
 
     # ---------------------------------------------------------------------
     # Public helpers
     # ---------------------------------------------------------------------
 
     def ask(self, question: str, *, k: Optional[int] = None) -> str:
-        """Run a question through the RAG pipeline and return the answer."""
+        """Run a question through the pipeline and return the answer."""
         if not question:
             raise ValueError("Question cannot be empty.")
-        return self._chain.invoke({"query": question, "k": k or self.k})[
-            "result"
-        ]
+
+        if self.is_rag:
+            return self._chain.invoke({"query": question, "k": k or self.k})["result"]
+        else:
+            return self._chain.invoke({"question": question})
 
     def ask_with_sources(self, question: str, *, k: Optional[int] = None) -> dict[str, str]:
         """Return answer plus a concatenated string of sources."""
@@ -74,7 +78,7 @@ class RAGPipeline:
 # Builder
 # -------------------------------------------------------------------------
 
-def _build_chat_prompt_template() -> ChatPromptTemplate:
+def _build_rag_prompt_template() -> ChatPromptTemplate:
     """Create a chat prompt where *context* is placed inside the system role.
 
     The caller may inject a custom *system_prompt* containing the ``{context}`` and
@@ -100,6 +104,20 @@ def _build_chat_prompt_template() -> ChatPromptTemplate:
 
     return ChatPromptTemplate.from_messages([system_msg, human_msg])
     # return ChatPromptTemplate.from_messages([human_msg])
+
+def _build_prompt_template() -> ChatPromptTemplate:
+    """Create a chat prompt without context."""
+
+    system_prompt = (
+        "You are an expert assistant. Answer the user's MCQ question.\n"
+        "Give me ONLY the letter corresponding to the chosen answer in the format of 'A', 'B', 'C', 'D'.\n"
+        "No need to explain anything. No need to print anything else.\n"
+        "Your output response should ONLY contain 1 letter. Example: 'A'."
+    )
+    system_msg = SystemMessagePromptTemplate.from_template(system_prompt)
+    human_msg = HumanMessagePromptTemplate.from_template("{question}")
+
+    return ChatPromptTemplate.from_messages([system_msg, human_msg])
 
 
 def build_rag_pipeline(
@@ -163,15 +181,19 @@ def build_rag_pipeline(
     # in the prompt template below, so *system* here stays static.
     llm = ChatOllama(model=llm_model,model_kwargs={"num_predict": 1})
 
-    chat_prompt = _build_chat_prompt_template()
+    # RAG
+    # prompt = _build_rag_prompt_template()
+    # chain = RetrievalQA.from_chain_type(
+    #     llm=llm,
+    #     retriever=retriever,
+    #     chain_type="stuff",
+    #     return_source_documents=True,
+    #     chain_type_kwargs={"prompt": prompt},
+    # )
 
-    chain = RetrievalQA.from_chain_type(
-        llm=llm,
-        retriever=retriever,
-        chain_type="stuff",
-        return_source_documents=True,
-        chain_type_kwargs={"prompt": chat_prompt},
-    )
+    # No RAG
+    prompt = _build_prompt_template()
+    chain = LLMChain(llm=llm, prompt=prompt)
 
 
     return RAGPipeline(chain, retriever_collection=collection, embedding_name=embedding_name, k=k)
