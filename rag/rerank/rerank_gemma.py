@@ -32,8 +32,8 @@ from langchain_chroma import Chroma
 from langchain_core.documents import Document
 from langchain.schema import BaseRetriever
 from langchain_core.callbacks import CallbackManagerForRetrieverRun
-
 from sentence_transformers import CrossEncoder
+
 
 from modules.accessor import EMBEDDING_FUNCTIONS, get_collection_names_from_dim
 
@@ -170,7 +170,7 @@ def build_rag_rerank_pipeline(
     vector_suffix: str = "512_chunks",
     top_n: int = 20,
     rerank_k: int = 4,
-    cross_encoder_model: str = "cross-encoder/ms-marco-MiniLM-L-6-v2",
+    cross_encoder_model: str = "cross-encoder/ms-marco-MiniLM-L12-v2",
 ) -> RerankRAGPipeline:
     """Construct a RAG pipeline with a cross-encoder re-ranking stage.
 
@@ -260,7 +260,7 @@ if __name__ == "__main__":
     parser.add_argument("--rerank-k", type=int, default=4, help="Docs kept after rerank (default: 4)")
     parser.add_argument(
         "--cross-encoder",
-        default="cross-encoder/ms-marco-MiniLM-L-6-v2",
+        default="cross-encoder/ms-marco-MiniLM-L12-v2",
         help="HuggingFace cross-encoder model name",
     )
     args = parser.parse_args()

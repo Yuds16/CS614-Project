@@ -22,6 +22,12 @@ from langchain.prompts import PromptTemplate
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
 
+from langchain.prompts.chat import (
+    ChatPromptTemplate,
+    SystemMessagePromptTemplate,
+    HumanMessagePromptTemplate,
+)
+
 from modules.accessor import EMBEDDING_FUNCTIONS, get_collection_names_from_dim
 __all__ = [
     "RAGPipeline",
@@ -70,12 +76,31 @@ class RAGPipeline:
 # -------------------------------------------------------------------------
 
 def _build_prompt_template() -> PromptTemplate:
-    template = (
-        "You are an expert assistant. Answer the user's question based on the provided documents.\n"
-        "It's MCQ question, please give me the answer in the format of 'A', 'B', 'C', 'D'.If you are not sure, please give me the answer in the format of 'I don't know'.\n"
-        "Context:\n{context}\n\nQuestion: {question}\nAnswer:"  # noqa: E501
-    )
-    return PromptTemplate.from_template(template)
+    # template = (
+    #     "You are an expert assistant. Answer the user's question based on the provided documents.\n"
+    #     "It's MCQ question, please give me the answer in the format of 'A', 'B', 'C', 'D'.If you are not sure, please give me the answer in the format of 'I don't know'.\n"
+    #     "Context:\n{context}\n\nQuestion: {question}\nAnswer:"  # noqa: E501
+    # )
+    # return PromptTemplate.from_template(template)
+
+    system_prompt = (
+    "You are an expert assistant. Answer the user's question based on the provided documents.\n"
+        "It's MCQ question, please give me the answer in the format of 'A', 'B', 'C', 'D'.No need to explain the answer. Context: {context}"
+)
+#     system_prompt = (
+#     "You are an expert assistant. Answer the user's question based on the provided documents. "
+#         "If the answer is not in the documents, say you don't know.\ Context: {context}"
+# )
+    # user_prompt=(
+    #     "You are an expert assistant. Answer the user's question based on the provided documents.\n"
+    #     "It's MCQ question, please give me the answer in the format of 'A', 'B', 'C', 'D'. Context: {context}"
+    # )
+    system_msg = SystemMessagePromptTemplate.from_template(system_prompt)
+    human_msg = HumanMessagePromptTemplate.from_template("{question}")
+    # human_msg = HumanMessagePromptTemplate.from_template(user_prompt+"Question: {question}")
+
+    return ChatPromptTemplate.from_messages([system_msg, human_msg])
+    # return ChatPromptTemplate.from_messages([human_msg])
 
 
 def build_rag_pipeline(

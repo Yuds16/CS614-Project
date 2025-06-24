@@ -150,17 +150,24 @@ def _build_chat_prompt_template() -> ChatPromptTemplate:
     default is provided.
     """
 
+    # system_prompt = (
+    #     "You are an expert assistant. Answer the user's MCQ question based on the provided context.\n"
+    #     "Give me ONLY the letter corresponding to the chosen answer in the format of 'A', 'B', 'C', 'D'.\n"
+    #     "No need to explain anything. No need to print anything else.\n"
+    #     "Your output response should ONLY contain 1 letter. Example: 'A'.\n"
+    #     "Context: {context}"
+    # )
+
     system_prompt = (
-        "You are an expert assistant. Answer the user's MCQ question based on the provided context.\n"
-        "Give me ONLY the letter corresponding to the chosen answer in the format of 'A', 'B', 'C', 'D'.\n"
-        "No need to explain anything. No need to print anything else.\n"
-        "Your output response should ONLY contain 1 letter. Example: 'A'.\n"
-        "Context: {context}"
-    )
+    "You are an expert assistant. Answer the user's question based on the provided documents. "
+        "If the answer is not in the documents, say you don't know.\ Context: {context}"
+)
+    
     system_msg = SystemMessagePromptTemplate.from_template(system_prompt)
     human_msg = HumanMessagePromptTemplate.from_template("{question}")
 
     return ChatPromptTemplate.from_messages([system_msg, human_msg])
+    # return ChatPromptTemplate.from_messages([human_msg])
 
 
 def build_rag_rerank_pipeline(
@@ -170,7 +177,7 @@ def build_rag_rerank_pipeline(
     vector_suffix: str = "512_chunks",
     top_n: int = 20,
     rerank_k: int = 4,
-    cross_encoder_model: str = "cross-encoder/ms-marco-MiniLM-L-6-v2",
+    cross_encoder_model: str = "cross-encoder/ms-marco-MiniLM-L12-v2",
 ) -> RerankRAGPipeline:
     """Construct a RAG pipeline with a cross-encoder re-ranking stage.
 
@@ -260,7 +267,7 @@ if __name__ == "__main__":
     parser.add_argument("--rerank-k", type=int, default=4, help="Docs kept after rerank (default: 4)")
     parser.add_argument(
         "--cross-encoder",
-        default="cross-encoder/ms-marco-MiniLM-L-6-v2",
+        default="cross-encoder/ms-marco-MiniLM-L12-v2",
         help="HuggingFace cross-encoder model name",
     )
     args = parser.parse_args()
