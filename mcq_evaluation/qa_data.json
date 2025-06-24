@@ -1,0 +1,504 @@
+[
+    {
+      "question": "In the novel 'All Fours', what reason does the narrator's neighbor, Brian, give in a note for his concern?",
+      "options": {
+        "A": "He saw someone trying to break into her car.",
+        "B": "He witnessed a stranger using a telephoto lens to photograph her house.",
+        "C": "He found a suspicious package on her doorstep.",
+        "D": "He noticed a coyote lingering in her front yard."
+      },
+      "answer": "B"
+    },
+    {
+      "question": "According to Harris's theory in the book, what is the primary characteristic of a 'Parker'?",
+      "options": {
+        "A": "They enjoy long, uneventful drives and simple pleasures.",
+        "B": "They are cautious and always plan ahead.",
+        "C": "They need to perform impossible tasks and receive applause.",
+        "D": "They are introverted and prefer to stay home."
+      },
+      "answer": "C"
+    },
+    {
+      "question": "What is the narrator's stated motivation for deciding to drive across the country to New York?",
+      "options": {
+        "A": "To become a more grounded and 'chill' person, like a 'Driver'.",
+        "B": "She has a deep-seated fear of flying.",
+        "C": "She needed to transport her car for an extended stay.",
+        "D": "To save money on airfare."
+      },
+      "answer": "A"
+    },
+    {
+      "question": "Where does the narrator first meet Davey?",
+      "options": {
+        "A": "At the Excelsior motel where she is staying.",
+        "B": "At a restaurant in Monrovia called Fontana's.",
+        "C": "At a gas station where he is cleaning her windshield.",
+        "D": "At the Hertz rental car lot where he works."
+      },
+      "answer": "C"
+    },
+    {
+      "question": "What does the narrator do with the $20,000 she received from a whiskey company?",
+      "options": {
+        "A": "She uses it for her cross-country trip and a stay at the Carlyle Hotel.",
+        "B": "She hires Davey's wife, Claire, to completely redecorate her motel room.",
+        "C": "She gives it to her friend Jordi as a grant for her art.",
+        "D": "She puts it into a savings account for her child, Sam."
+      },
+      "answer": "B"
+    },
+    {
+      "question": "What is the real reason the pop star Arkanda wanted to meet with the narrator?",
+      "options": {
+        "A": "Arkanda wanted to collaborate on a secret music project.",
+        "B": "Arkanda was interested in optioning the narrator's book for a film.",
+        "C": "They both experienced the same rare birth complication, Fetal-maternal Hemorrhage.",
+        "D": "Arkanda's assistant was a fan of the narrator's work."
+      },
+      "answer": "C"
+    },
+    {
+      "question": "What does Davey reveal to be his secret artistic passion?",
+      "options": {
+        "A": "He is a singer-songwriter.",
+        "B": "He is a street and hip-hop dancer.",
+        "C": "He carves bowls out of tree burls.",
+        "D": "He is a painter."
+      },
+      "answer": "B"
+    },
+    {
+      "question": "Who is Audra in relation to Davey?",
+      "options": {
+        "A": "His aunt who owns the antique mall.",
+        "B": "His high school drama teacher.",
+        "C": "His mother's best friend who became his first sexual partner.",
+        "D": "A talent agent who discovered his dancing."
+      },
+      "answer": "C"
+    },
+    {
+      "question": "What is the final agreement that the narrator and Harris come to about their marriage?",
+      "options": {
+        "A": "They decide to get a divorce.",
+        "B": "They agree to remain married but are both free to see other people on designated nights.",
+        "C": "They commit to strict monogamy and couples therapy.",
+        "D": "They decide to live separately for a trial period."
+      },
+      "answer": "B"
+    },
+    {
+      "question": "What role does Harris play in order to have 'make-up sex' with the narrator after her trip?",
+      "options": {
+        "A": "Her neighbor Brian from the FBI.",
+        "B": "A fan of her work.",
+        "C": "A stranger they meet at a bar.",
+        "D": "The telephotographer who took pictures of her through her window."
+      },
+      "answer": "D"
+    },
+    {
+      "question": "Who is Kris, the person the narrator begins to date?",
+      "options": {
+        "A": "A woman she meets at her new gym.",
+        "B": "Her manager Liza's ex-girlfriend.",
+        "C": "The ex-girlfriend and muse of the famous artist Lore Estes.",
+        "D": "A therapist specializing in non-traditional relationships."
+      },
+      "answer": "C"
+    },
+    {
+      "question": "What event causes the final breakup between the narrator and Kris?",
+      "options": {
+        "A": "Kris admits she is still in love with Lore Estes.",
+        "B": "Kris reveals she had sex with a wealthy art collector named Elsa.",
+        "C": "The narrator refuses to commit to a monogamous relationship.",
+        "D": "They have a major argument about the narrator's relationship with Harris."
+      },
+      "answer": "B"
+    },
+    {
+      "question": "According to the narrator's father, why did his mother, Esther, commit suicide?",
+      "options": {
+        "A": "She was suffering from a terminal illness.",
+        "B": "She couldn't bear the thought of losing her physical beauty as she aged.",
+        "C": "She was clinically depressed and in the 'deathfield'.",
+        "D": "She had a large fight with her husband."
+      },
+      "answer": "B"
+    },
+    {
+      "question": "What object with 'CALL ME' painted on it does the narrator leave as a message for Davey?",
+      "options": {
+        "A": "A large rock.",
+        "B": "A canvas bag.",
+        "C": "A pink canvas folding chair.",
+        "D": "A piece of cardboard."
+      },
+      "answer": "C"
+    },
+    {
+      "question": "What surprising thing does the narrator learn about her mother's entry into menopause?",
+      "options": {
+        "A": "She never experienced any symptoms.",
+        "B": "A doctor removed her ovaries without her consent during a different surgery.",
+        "C": "She used hormone replacement therapy for over 20 years.",
+        "D": "She went through it at a very young age."
+      },
+      "answer": "B"
+    },
+    {
+      "question": "Who does the 'telephotographer' from the beginning of the novel turn out to be?",
+      "options": {
+        "A": "A private investigator hired by Harris.",
+        "B": "A stalker who is a fan of her work.",
+        "C": "Her neighbor, Brian, from the FBI.",
+        "D": "A real estate agent taking a photo for a marketing postcard."
+      },
+      "answer": "D"
+    },
+    {
+      "question": "What is the significance of the saluting gesture between the narrator and Harris?",
+      "options": {
+        "A": "It's a secret signal to leave a party.",
+        "B": "It's an inside joke about a movie they both love.",
+        "C": "It's their long-standing gesture of recognition and steadfast devotion.",
+        "D": "It's how they apologize after an argument."
+      },
+      "answer": "C"
+    },
+    {
+      "question": "When the narrator experiences severe vertigo in her New York hotel, what does Jordi suggest is the cause?",
+      "options": {
+        "A": "A panic attack brought on by stress.",
+        "B": "A tiny, displaced crystal in her inner ear.",
+        "C": "A side effect of her hormone replacement therapy.",
+        "D": "Food poisoning from the airline meal."
+      },
+      "answer": "B"
+    },
+    {
+      "question": "What is the name of Sam's beloved but neglectful wonder-nanny who later worked for Arkanda?",
+      "options": {
+        "A": "Leila",
+        "B": "Tara",
+        "C": "Jess",
+        "D": "Caro"
+      },
+      "answer": "C"
+    },
+    {
+      "question": "During the narrator's stay at the Excelsior, what intimate act does Davey perform for her in the bathroom?",
+      "options": {
+        "A": "He washes her hair.",
+        "B": "He gives her a foot massage.",
+        "C": "He changes her tampon.",
+        "D": "He draws a bath for her."
+      },
+      "answer": "C"
+    },
+    {
+      "question": "At the end of the novel, what does the narrator realize during Davey's dance performance in New York?",
+      "options": {
+        "A": "That he has stolen her dance moves.",
+        "B": "That she is still deeply in love with him.",
+        "C": "That the feeling of freedom from the motel room ('321') is everywhere and she can always access it.",
+        "D": "That he has become more famous than she will ever be."
+      },
+      "answer": "C"
+    },
+    {
+      "question": "After her fight with Harris, what does the narrator learn about the shared history of all the women in her family?",
+      "options": {
+        "A": "They all had affairs in their forties.",
+        "B": "They all suffered from severe depression.",
+        "C": "They all experienced Fetal-maternal Hemorrhage.",
+        "D": "Her grandmother and aunt both committed suicide after feeling they were 'too old'."
+      },
+      "answer": "D"
+    },
+    {
+      "question": "What is the 'Third Thing,' according to Jordi's explanation of a Quaker concept?",
+      "options": {
+        "A": "A secret kept between two friends.",
+        "B": "The unspoken truth in a relationship.",
+        "C": "A neutral topic of conversation through which the soul can speak indirectly.",
+        "D": "An extramarital affair."
+      },
+      "answer": "C"
+    },
+    {
+      "question": "What item does the narrator buy back from Goodwill that she had previously donated?",
+      "options": {
+        "A": "A pair of clogs.",
+        "B": "A cheap pink bathrobe.",
+        "C": "A collection of vintage records.",
+        "D": "A set of ceramic lions."
+      },
+      "answer": "B"
+    },
+    {
+      "question": "In the end, who completes the star-patterned tile floor in room 321?",
+      "options": {
+        "A": "The narrator buys the missing tiles herself.",
+        "B": "Skip, the motel manager, finds matching tiles online.",
+        "C": "Davey and Claire return to install the final three tiles.",
+        "D": "Jordi creates custom tiles to complete the pattern."
+      },
+      "answer": "C"
+    },
+    
+        {
+          "question": "What gift does Haymitch's girlfriend, Lenore Dove, give him for his sixteenth birthday?",
+          "options": {
+            "A": "A pocketknife",
+            "B": "A pint of white liquor",
+            "C": "A flint striker shaped like a snake and a bird",
+            "D": "A bag of multicolored gumdrops"
+          },
+          "answer": "C"
+        },
+        {
+          "question": "How does Haymitch Abernathy become a tribute in the 50th Hunger Games?",
+          "options": {
+            "A": "His name is drawn from the reaping ball.",
+            "B": "He volunteers to take his brother's place.",
+            "C": "He is chosen as a replacement after intervening in a dispute to protect Lenore.",
+            "D": "He is punished for trying to escape the reaping."
+          },
+          "answer": "C"
+        },
+        {
+          "question": "What tragic event occurs during the chariot parade at the opening ceremonies?",
+          "options": {
+            "A": "Haymitch falls out of the chariot and breaks his leg.",
+            "B": "Maysilee is attacked by another tribute.",
+            "C": "The chariot from District 6 crashes into the crowd.",
+            "D": "Louella McCoy is thrown from the chariot and dies."
+          },
+          "answer": "D"
+        },
+        {
+          "question": "Who are the two mentors assigned to the District 12 tributes?",
+          "options": {
+            "A": "Effie Trinket and Caesar Flickerman",
+            "B": "Plutarch Heavensbee and Drusilla Sickle",
+            "C": "Mags from District 4 and Wiress from District 3",
+            "D": "Beetee from District 3 and a victor from District 1"
+          },
+          "answer": "C"
+        },
+        {
+          "question": "What is the name the alliance of non-Career tributes gives themselves?",
+          "options": {
+            "A": "The Rebels",
+            "B": "The Newcomers",
+            "C": "The Underdogs",
+            "D": "The Loose Cannons"
+          },
+          "answer": "B"
+        },
+        {
+          "question": "How does Haymitch discover that the water and plants in the arena are poisonous?",
+          "options": {
+            "A": "Maysilee warns him after she gets sick.",
+            "B": "He drinks from a stream and gets sick after seeing a rabbit die from it.",
+            "C": "A sponsor sends a note warning him.",
+            "D": "The Gamemakers make an announcement."
+          },
+          "answer": "B"
+        },
+        {
+          "question": "What is the primary weapon Maysilee Donner uses effectively in the arena?",
+          "options": {
+            "A": "A bow and arrow",
+            "B": "A small knife",
+            "C": "A blowgun with poison darts",
+            "D": "A trident"
+          },
+          "answer": "C"
+        },
+        {
+          "question": "What special feature does Haymitch discover at the edge of the arena beyond the woods?",
+          "options": {
+            "A": "An electrified fence",
+            "B": "A deep chasm filled with water",
+            "C": "A force field that repels objects thrown at it",
+            "D": "A wall of fire"
+          },
+          "answer": "C"
+        },
+        {
+          "question": "How is Silka, the female tribute from District 1, ultimately killed?",
+          "options": {
+            "A": "Haymitch kills her with his ax.",
+            "B": "Maysilee shoots her with a poison dart.",
+            "C": "She is killed by a muttation.",
+            "D": "Her own ax rebounds off the force field and strikes her in the head."
+          },
+          "answer": "D"
+        },
+        {
+          "question": "What happens to Haymitch's family while he is in the Hunger Games?",
+          "options": {
+            "A": "They are moved to the Victor's Village.",
+            "B": "They are taken to the Capitol for their safety.",
+            "C": "They are killed in a house fire set by the Capitol.",
+            "D": "They escape from District 12."
+          },
+          "answer": "C"
+        },
+        {
+          "question": "How does Lenore Dove die?",
+          "options": {
+            "A": "She is executed by the Peacekeepers for her rebellious songs.",
+            "B": "She takes her own life out of grief.",
+            "C": "She is poisoned by gumdrops sent by President Snow.",
+            "D": "She dies of appendicitis."
+          },
+          "answer": "C"
+        },
+        {
+          "question": "What is the secret rebel plan that Beetee shares with Haymitch?",
+          "options": {
+            "A": "To assassinate President Snow during the Victory Tour.",
+            "B": "To start a fire in the Gamemakers' control room.",
+            "C": "To organize a mass escape of the tributes from the arena.",
+            "D": "To flood the arena's control center by blowing up a water tank."
+          },
+          "answer": "D"
+        },
+        {
+          "question": "What nickname do the Newcomers decide to call the Career tributes?",
+          "options": {
+            "A": "The Capitol Pets",
+            "B": "The Brutes",
+            "C": "The Near Beer Careers",
+            "D": "The Fakers"
+          },
+          "answer": "C"
+        },
+        {
+          "question": "How does Maysilee Donner die in the arena?",
+          "options": {
+            "A": "She is killed by Silka from District 1.",
+            "B": "She is attacked and killed by a flock of pink, bird-like mutts.",
+            "C": "She sacrifices herself to save Haymitch.",
+            "D": "She falls from a cliff."
+          },
+          "answer": "B"
+        },
+        {
+          "question": "What is the first thing President Snow says to Haymitch after he wins the Games?",
+          "options": {
+            "A": "“Congratulations on your victory.”",
+            "B": "“You have made a powerful enemy today.”",
+            "C": "“Enjoy your homecoming.”",
+            "D": "“Snow lands on top.”"
+          },
+          "answer": "C"
+        },
+        {
+          "question": "What is the overall design or shape of the 50th Hunger Games arena?",
+          "options": {
+            "A": "A clock",
+            "B": "A giant eye",
+            "C": "A perfect circle",
+            "D": "A dense jungle with a central lake"
+          },
+          "answer": "B"
+        },
+        {
+          "question": "Who provides the District 12 tributes with proper outfits for the interviews after their stylist, Magno Stift, fails to do so?",
+          "options": {
+            "A": "Plutarch Heavensbee",
+            "B": "Mags",
+            "C": "Caesar Flickerman",
+            "D": "Effie Trinket"
+          },
+          "answer": "D"
+        },
+        {
+          "question": "What does Haymitch do with the pitcher of milk he is supposed to give to a sick President Snow?",
+          "options": {
+            "A": "He drops it on the floor.",
+            "B": "He gives it to Plutarch.",
+            "C": "He drinks it himself.",
+            "D": "He throws it at the President."
+          },
+          "answer": "C"
+        },
+        {
+          "question": "What does Haymitch realize about the beautiful landscape of the arena?",
+          "options": {
+            "A": "It is an exact replica of the woods around District 12.",
+            "B": "The Gamemakers can change the weather at will.",
+            "C": "All the food and water outside the Cornucopia are poisonous.",
+            "D": "It is filled with hidden traps and cameras."
+          },
+          "answer": "C"
+        },
+        {
+          "question": "What does Plutarch Heavensbee tell Haymitch about the arena's sun?",
+          "options": {
+            "A": "It is much hotter than a normal sun.",
+            "B": "It is an illusion created by the Gamemakers.",
+            "C": "It is in sync with the real sun, allowing him to tell direction.",
+            "D": "It can be turned off at night."
+          },
+          "answer": "C"
+        },
+        {
+          "question": "What does Haymitch throw at the force field in his final move against Silka?",
+          "options": {
+            "A": "His knife",
+            "B": "His ax",
+            "C": "A rock",
+            "D": "A spear"
+          },
+          "answer": "B"
+        },
+        {
+          "question": "After the Games, what does Haymitch see on a wall in a back alley that confirms Lenore Dove's rebellious activities?",
+          "options": {
+            "A": "A drawing of a mockingjay",
+            "B": "A song lyric she wrote",
+            "C": "A rebel slogan sprayed in bright orange paint",
+            "D": "Her signature"
+          },
+          "answer": "C"
+        },
+        {
+          "question": "What does Maysilee use to create a makeshift glue to repair Kerna's broken sunflower token?",
+          "options": {
+            "A": "Tree sap and water",
+            "B": "Flour, water, and salt",
+            "C": "Crushed berries and ash",
+            "D": "Melted paraffin"
+          },
+          "answer": "B"
+        },
+        {
+          "question": "What is the first muttation Haymitch successfully fights off using his flint striker and a gas plant?",
+          "options": {
+            "A": "Carnivorous squirrels",
+            "B": "A flock of pink birds",
+            "C": "A swarm of stinging butterflies",
+            "D": "A giant porcupine"
+          },
+          "answer": "C"
+        },
+        {
+          "question": "What is the final 'poster' Haymitch creates in the arena?",
+          "options": {
+            "A": "Killing Silka with her own ax.",
+            "B": "Leaving Maysilee's body for the Capitol to see.",
+            "C": "Carrying Louella's body to President Snow.",
+            "D": "Throwing the explosive sunflower at the force field."
+          },
+          "answer": "D"
+        }
+      
+  ]
